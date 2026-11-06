@@ -86,7 +86,7 @@ class Settings(commands.Cog):
             except Exception as e:
                 print(f"패널 삭제 오류: {e}")
 
-    set_group = app_commands.Group(name="set", description="서버 설정을 구성합니다.")
+    set_group = app_commands.Group(name="set", description="서버 설정을 구성합니다.", default_permissions=discord.Permissions(administrator=True))
 
     @set_group.command(name="log", description="로그 채널을 설정합니다.")
     @app_commands.choices(target=[
@@ -95,7 +95,6 @@ class Settings(commands.Cog):
         app_commands.Choice(name="ticket (티켓 로그)", value="ticket")
     ])
     @app_commands.describe(target="설정할 로그 종류", channel="기록할 텍스트 채널 (생략 시 현재 채널)")
-    @app_commands.checks.has_permissions(administrator=True)
     async def set_log(self, interaction: discord.Interaction, target: str, channel: discord.TextChannel = None):
         log_map = {
             "server": "server_log_channel_id",
@@ -122,7 +121,6 @@ class Settings(commands.Cog):
         app_commands.Choice(name="ticket (티켓 패널 생성)", value="ticket")
     ])
     @app_commands.describe(target="설정할 명령어 카테고리", channel="사용할 텍스트 채널 (생략 시 현재 채널)")
-    @app_commands.checks.has_permissions(administrator=True)
     async def set_command(self, interaction: discord.Interaction, target: str, channel: discord.TextChannel = None):
         gid = str(interaction.guild.id)
         self.get_server_data(interaction.guild)
@@ -165,10 +163,9 @@ class Settings(commands.Cog):
             await interaction.response.send_message(embed=embed, ephemeral=True)
 
     # --- /reset 명령어 그룹 ---
-    reset_group = app_commands.Group(name="reset", description="서버 설정을 초기화합니다.")
+    reset_group = app_commands.Group(name="reset", description="서버 설정을 초기화합니다.", default_permissions=discord.Permissions(administrator=True))
 
     @reset_group.command(name="all", description="서버의 모든 설정을 초기화합니다.")
-    @app_commands.checks.has_permissions(administrator=True)
     async def reset_all(self, interaction: discord.Interaction):
         gid = str(interaction.guild.id)
         await interaction.response.defer(ephemeral=True)
@@ -185,7 +182,6 @@ class Settings(commands.Cog):
         app_commands.Choice(name="punish", value="punish"),
         app_commands.Choice(name="ticket", value="ticket")
     ])
-    @app_commands.checks.has_permissions(administrator=True)
     async def reset_log(self, interaction: discord.Interaction, target: str):
         log_map = {
             "server": "server_log_channel_id",
@@ -206,7 +202,6 @@ class Settings(commands.Cog):
         app_commands.Choice(name="bot", value="bot"),
         app_commands.Choice(name="ticket", value="ticket")
     ])
-    @app_commands.checks.has_permissions(administrator=True)
     async def reset_command(self, interaction: discord.Interaction, target: str):
         gid = str(interaction.guild.id)
         cmd_map = {
