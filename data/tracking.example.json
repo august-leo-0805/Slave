@@ -1,0 +1,225 @@
+{
+    "minecraft java - example_player": {
+        "data": {
+            "name": "Example_Player",
+            "uuid": "12345678-1234-4123-8123-123456789abc",
+            "edition": "JAVA",
+            "platform": "Java Edition",
+            "skin_render_url": "https://mc-api.io/render/BUST/Example_Player/JAVA",
+            "favicon_render_url": "https://mc-api.io/render/HEAD/Example_Player/JAVA",
+            "raw_data": {
+                "cachedAt": 1700000000000,
+                "decodedTexture": {
+                    "profileId": "12345678123441238123123456789abc",
+                    "profileName": "Example_Player",
+                    "signatureRequired": true,
+                    "textures": {
+                        "SKIN": {
+                            "url": "http://textures.minecraft.net/texture/0000000000000000000000000000000000000000000000000000000000000000"
+                        }
+                    }
+                },
+                "name": "Example_Player",
+                "textures": {
+                    "signature": "<BASE64_SIGNATURE>",
+                    "value": "<BASE64_ENCODED_TEXTURE_JSON>"
+                },
+                "uuid": "12345678-1234-4123-8123-123456789abc"
+            }
+        },
+        "timestamp": 1700000000
+    },
+    "minecraft java - play.example.com": {
+        "data": {
+            "address": "192.0.2.1",
+            "cachedAt": 1700000000000,
+            "favicon": "data:image/png;base64,<BASE64_PNG_DATA>",
+            "hostname": "play.example.com",
+            "maxPlayers": 1000,
+            "motd": "§fWelcome to §aExample Server §c[1.8 - 1.21]\n§eSurvival & Minigames",
+            "online": true,
+            "onlinePlayers": 128,
+            "ping": 25,
+            "players": [],
+            "port": 25565,
+            "protocol": 769,
+            "rawMotd": "Welcome to Example Server [1.8 - 1.21]\nSurvival & Minigames",
+            "version": "Requires MC 1.8 / 1.21"
+        },
+        "timestamp": 1700000000
+    },
+    "lol kr - 소환사명#KR1": {
+        "region": "kr",
+        "riotid": "소환사명#KR1",
+        "level": 150,
+        "icon": 29,
+        "data": {
+            "solo": {
+                "tier": "GOLD II",
+                "lp": 50,
+                "w": 45,
+                "l": 40
+            },
+            "flex": {
+                "tier": "Unranked",
+                "lp": 0,
+                "w": 0,
+                "l": 0
+            },
+            "total_w": 45,
+            "total_l": 40,
+            "masteries": [
+                {
+                    "championName": "아리",
+                    "level": 10,
+                    "points": 120000
+                },
+                {
+                    "championName": "아칼리",
+                    "level": 8,
+                    "points": 85000
+                },
+                {
+                    "championName": "카이사",
+                    "level": 7,
+                    "points": 64000
+                }
+            ],
+            "recent_games": [
+                {
+                    "win": true,
+                    "kills": 8,
+                    "deaths": 2,
+                    "assists": 11,
+                    "champion": "아리"
+                },
+                {
+                    "win": false,
+                    "kills": 4,
+                    "deaths": 5,
+                    "assists": 7,
+                    "champion": "아칼리"
+                }
+            ]
+        },
+        "timestamp": 1700000000
+    },
+    "valorant - PlayerName#KR1": {
+        "data": {
+            "name": "PlayerName",
+            "tag": "KR1",
+            "level": 100,
+            "card_icon": "https://media.valorant-api.com/playercards/00000000-0000-0000-0000-000000000000/smallart.png",
+            "tier": "Diamond 2",
+            "rr": 48,
+            "highest_tier": "Ascendant 1",
+            "recent_games": [
+                {
+                    "win": true,
+                    "rounds_won": 13,
+                    "rounds_lost": 7,
+                    "kills": 21,
+                    "deaths": 12,
+                    "assists": 5,
+                    "acs": 285.4,
+                    "hs_pct": 32,
+                    "agent": "Jett",
+                    "map": "Ascent"
+                },
+                {
+                    "win": false,
+                    "rounds_won": 9,
+                    "rounds_lost": 13,
+                    "kills": 15,
+                    "deaths": 16,
+                    "assists": 4,
+                    "acs": 210.2,
+                    "hs_pct": 25.5,
+                    "agent": "Omen",
+                    "map": "Haven"
+                }
+            ]
+        },
+        "timestamp": 1700000000
+    },
+    "pubg steam - ExamplePlayer": {
+        "nickname": "ExamplePlayer",
+        "platform": "steam",
+        "data": {
+            "squad": {
+                "adr": 215,
+                "kd": 1.65,
+                "win_rate": "6.2%",
+                "top10": "34.0%",
+                "rounds": 320,
+                "tier": "Normal",
+                "sub_tier": "",
+                "point": 0
+            },
+            "ranked-squad": {
+                "adr": 240,
+                "kd": 1.95,
+                "win_rate": "12.5%",
+                "top10": "48.0%",
+                "rounds": 40,
+                "tier": "Platinum",
+                "sub_tier": "2",
+                "point": 2750
+            }
+        },
+        "timestamp": 1700000000
+    },
+    "er asia - 플레이어명": {
+        "nickname": "플레이어명",
+        "server": "asia",
+        "data": {
+            "normal": {
+                "games": 120,
+                "wins": 18,
+                "top1": 15,
+                "top3": 42.5,
+                "avg_rank": 4.1,
+                "kills": 3.2,
+                "assistants": 2.8,
+                "hunts": 38.5
+            },
+            "rank": {
+                "tier": "다이아몬드",
+                "mmr": 5400,
+                "rank": 1250,
+                "games": 85,
+                "wins": 12,
+                "top1": 14.1,
+                "top3": 40,
+                "avg_rank": 4.2,
+                "kills": 2.9,
+                "assistants": 2.5,
+                "hunts": 35
+            }
+        },
+        "timestamp": 1700000000
+    },
+    "tft kr - 전략가#KR1": {
+        "region": "kr",
+        "riotid": "전략가#KR1",
+        "level": 80,
+        "icon": 7,
+        "data": {
+            "ranked_tft": {
+                "tier": "MASTER I",
+                "lp": 210,
+                "w": 65,
+                "l": 52
+            },
+            "double_up": {
+                "tier": "Unranked",
+                "lp": 0,
+                "w": 0,
+                "l": 0
+            },
+            "total_w": 65,
+            "total_l": 52
+        },
+        "timestamp": 1700000000
+    }
+}
