@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 import discord
 from discord import app_commands
 from discord.ext import commands
@@ -8,8 +9,8 @@ class Information(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        base_path = os.path.dirname(os.path.abspath(__file__))
-        self.slave_file = os.path.join(base_path, "..", "data/slave_data.json")
+        base_path = Path(__file__).resolve().parents[2]
+        self.slave_file = os.path.join(base_path, "data/slave_data.json")
         with open(self.slave_file, 'r', encoding='utf-8') as f:
             data = json.load(f)
             self.help_data = data['help']
@@ -139,28 +140,28 @@ class Information(commands.Cog):
         if channel and channel.permissions_for(guild.me).send_messages:
             await self.send_welcome_help(channel, "welcome")
 
-    @app_commands.command(name="help", description="봇의 사용법과 명령어 가이드를 확인합니다.")
-    @app_commands.choices(category=[
-        app_commands.Choice(name="일반 도움말", value="general"),
-        app_commands.Choice(name="관리자 가이드", value="admin")
-    ])
-    @app_commands.describe(category="조회할 도움말의 카테고리를 선택하세요.")
-    async def help_command(self, interaction: discord.Interaction, category: str = "general"):
-        if category == "admin":
-            return await self.send_admin_help(interaction)
+    # @app_commands.command(name="help", description="봇의 사용법과 명령어 가이드를 확인합니다.")
+    # @app_commands.choices(category=[
+    #     app_commands.Choice(name="일반 도움말", value="general"),
+    #     app_commands.Choice(name="관리자 가이드", value="admin")
+    # ])
+    # @app_commands.describe(category="조회할 도움말의 카테고리를 선택하세요.")
+    # async def help_command(self, interaction: discord.Interaction, category: str = "general"):
+    #     if category == "admin":
+    #         return await self.send_admin_help(interaction)
         
-        embed = discord.Embed(
-            title=f"👋 {self.help_data['name']} 입니다.",
-            description=f"{self.help_data['greeting']}{self.help_data['summary']}",
-            color=808080
-        )
-        embed.add_field(name="🆔 명령어 방식", value="`슬래시(/) 명령어 기반`", inline=False)
-        embed.add_field(name="📖 도움말", value="`/help`", inline=True)
-        embed.add_field(name="✨ 유틸리티", value="`/choose`, `/menu`, `/kill`", inline=True)
-        embed.add_field(name="🎮 전적 조회", value="`/lol`, `/pubg`", inline=True)
-        embed.set_thumbnail(url=self.bot.user.display_avatar.url)
-        embed.set_footer(text="상세 도움말은 /help를 입력하세요.", icon_url=self.bot.user.display_avatar.url)
-        await interaction.response.send_message(embed=embed)
+    #     embed = discord.Embed(
+    #         title=f"👋 {self.help_data['name']} 입니다.",
+    #         description=f"{self.help_data['greeting']}{self.help_data['summary']}",
+    #         color=808080
+    #     )
+    #     embed.add_field(name="🆔 명령어 방식", value="`슬래시(/) 명령어 기반`", inline=False)
+    #     embed.add_field(name="📖 도움말", value="`/help`", inline=True)
+    #     embed.add_field(name="✨ 유틸리티", value="`/choose`, `/menu`, `/kill`", inline=True)
+    #     embed.add_field(name="🎮 전적 조회", value="`/lol`, `/pubg`", inline=True)
+    #     embed.set_thumbnail(url=self.bot.user.display_avatar.url)
+    #     embed.set_footer(text="상세 도움말은 /help를 입력하세요.", icon_url=self.bot.user.display_avatar.url)
+    #     await interaction.response.send_message(embed=embed)
 
     @app_commands.command(name="credit", description="봇 개발에 도움을 주신 분들입니다.")
     async def credit(self, interaction: discord.Interaction):

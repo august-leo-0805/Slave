@@ -34,11 +34,13 @@ class Slave(commands.Bot):
             cogs_path.mkdir()
             print("📂 'cogs' 폴더가 없어 새로 생성합니다.")
 
-        for filepath in cogs_path.glob("*.py"):
-            if filepath.stem.startswith("__"):
+        for filepath in cogs_path.rglob("*.py"):
+            relative_path = filepath.relative_to(cogs_path.parent)
+
+            if any(part.startswith(("__", ".")) for part in relative_path.parts):
                 continue
 
-            cog_name = f"cogs.{filepath.stem}"
+            cog_name = ".".join(relative_path.with_suffix("").parts)
             try:
                 await self.load_extension(cog_name)
                 print(f"✅ {cog_name} 로드 성공")

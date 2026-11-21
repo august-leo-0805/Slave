@@ -1,13 +1,14 @@
 import json
 import os
 import time
+from pathlib import Path
 from discord.ext import commands, tasks
 
 class CacheManager(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        base_path = os.path.dirname(os.path.abspath(__file__))
-        self.data_dir = os.path.join(base_path, "..", "data")
+        base_path = Path(__file__).resolve().parents[2]
+        self.data_dir = os.path.join(base_path, "data")
         self.cache_file = os.path.join(self.data_dir, "tracking.json")
         
         self._ensure_cache_file()

@@ -29,11 +29,12 @@ class Valorant(commands.Cog):
                     return None
                 acc_res = await resp.json()
 
-            acc_data = acc_res.get("data", {})
+            acc_data = acc_res.get("data") or {}
             puuid = acc_data.get("puuid")
-            region = acc_data.get("region", "ap")
-            level = acc_data.get("account_level", 0)
-            card_icon = acc_data.get("card", {}).get("small") or acc_data.get("card", {}).get("large")
+            region = acc_data.get("region") or "ap"
+            level = acc_data.get("account_level") or 0
+            card_data = acc_data.get("card") or {}
+            card_icon = card_data.get("small") or card_data.get("large")
 
             if not puuid:
                 return None
@@ -46,13 +47,13 @@ class Valorant(commands.Cog):
             async with session.get(mmr_url, headers=self.headers) as resp:
                 if resp.status == 200:
                     mmr_res = await resp.json()
-                    mmr_data = mmr_res.get("data", {})
-                    curr_data = mmr_data.get("current_data", {})
-                    tier = curr_data.get("currenttierpatched", "Unranked")
-                    rr = curr_data.get("ranking_in_tier", 0)
-                    
-                    highest_rank_data = mmr_data.get("highest_rank", {})
-                    highest_tier = highest_rank_data.get("patched_tier", "Unranked")
+                    mmr_data = mmr_res.get("data") or {}
+                    curr_data = mmr_data.get("current_data") or {}
+                    tier = curr_data.get("currenttierpatched") or "Unranked"
+                    rr = curr_data.get("ranking_in_tier") or 0
+
+                    highest_rank_data = mmr_data.get("highest_rank") or {}
+                    highest_tier = highest_rank_data.get("patched_tier") or "Unranked"
 
             matches_url = f"{self.base_url}/valorant/v3/by-puuid/matches/{region}/{puuid}?mode=competitive&size=5"
             recent_games = []
@@ -60,40 +61,41 @@ class Valorant(commands.Cog):
             async with session.get(matches_url, headers=self.headers) as resp:
                 if resp.status == 200:
                     matches_res = await resp.json()
-                    matches_list = matches_res.get("data", []) or []
+                    matches_list = matches_res.get("data") or []
 
                     for match in matches_list:
-                        meta = match.get("metadata", {})
-                        map_name = meta.get("map", "Unknown")
-                        rounds_played = meta.get("rounds_played", 1) or 1
+                        meta = match.get("metadata") or {}
+                        map_name = meta.get("map") or "Unknown"
+                        rounds_played = meta.get("rounds_played") or 1
 
-                        all_players = match.get("players", {}).get("all_players", [])
+                        players_data = match.get("players") or {}
+                        all_players = players_data.get("all_players") or []
                         user_p = next((p for p in all_players if p.get("puuid") == puuid), None)
 
                         if user_p:
-                            team_color = user_p.get("team", "").lower()
-                            teams_info = match.get("teams", {})
-                            user_team = teams_info.get(team_color, {})
+                            team_color = (user_p.get("team") or "").lower()
+                            teams_info = match.get("teams") or {}
+                            user_team = teams_info.get(team_color) or {}
 
-                            win = user_team.get("has_won", False)
-                            rounds_won = user_team.get("rounds_won", 0)
-                            rounds_lost = user_team.get("rounds_lost", 0)
+                            win = bool(user_team.get("has_won", False))
+                            rounds_won = user_team.get("rounds_won") or 0
+                            rounds_lost = user_team.get("rounds_lost") or 0
 
-                            stats = user_p.get("stats", {})
-                            kills = stats.get("kills", 0)
-                            deaths = stats.get("deaths", 0)
-                            assists = stats.get("assists", 0)
-                            score = stats.get("score", 0)
-                            
+                            stats = user_p.get("stats") or {}
+                            kills = stats.get("kills") or 0
+                            deaths = stats.get("deaths") or 0
+                            assists = stats.get("assists") or 0
+                            score = stats.get("score") or 0
+
                             match_acs = round(score / rounds_played, 1) if rounds_played > 0 else 0.0
 
-                            hs = stats.get("headshots", 0)
-                            bs = stats.get("bodyshots", 0)
-                            ls = stats.get("legshots", 0)
+                            hs = stats.get("headshots") or 0
+                            bs = stats.get("bodyshots") or 0
+                            ls = stats.get("legshots") or 0
                             total_shots = hs + bs + ls
                             match_hs_pct = round((hs / total_shots * 100), 1) if total_shots > 0 else 0.0
 
-                            character = user_p.get("character", "Unknown")
+                            character = user_p.get("character") or "Unknown"
 
                             recent_games.append({
                                 "win": win,

@@ -1,6 +1,6 @@
 import json
 import os
-
+from pathlib import Path
 import discord
 from discord import app_commands
 from discord.ext import commands
@@ -9,8 +9,8 @@ from discord.ext import commands
 class Settings(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        base_path = os.path.dirname(os.path.abspath(__file__))
-        self.config_file = os.path.join(base_path, "..", "data/config.json")
+        base_path = Path(__file__).resolve().parents[2]
+        self.config_file = os.path.join(base_path, "data/config.json")
         self.server_configs = {}
         self.load_config()
 
